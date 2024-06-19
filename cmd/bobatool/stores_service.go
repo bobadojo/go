@@ -25,30 +25,30 @@ func init() {
 	rootCmd.AddCommand(StoresServiceCmd)
 
 	StoresConfig = viper.New()
-	StoresConfig.SetEnvPrefix("CLI_STORES")
+	StoresConfig.SetEnvPrefix("BOBATOOL_STORES")
 	StoresConfig.AutomaticEnv()
 
-	StoresServiceCmd.PersistentFlags().Bool("insecure", false, "Make insecure client connection. Or use CLI_STORES_INSECURE. Must be used with \"address\" option")
+	StoresServiceCmd.PersistentFlags().Bool("insecure", false, "Make insecure client connection. Or use BOBATOOL_STORES_INSECURE. Must be used with \"address\" option")
 	StoresConfig.BindPFlag("insecure", StoresServiceCmd.PersistentFlags().Lookup("insecure"))
 	StoresConfig.BindEnv("insecure")
 
-	StoresServiceCmd.PersistentFlags().String("address", "", "Set API address used by client. Or use CLI_STORES_ADDRESS.")
+	StoresServiceCmd.PersistentFlags().String("address", "", "Set API address used by client. Or use BOBATOOL_STORES_ADDRESS.")
 	StoresConfig.BindPFlag("address", StoresServiceCmd.PersistentFlags().Lookup("address"))
 	StoresConfig.BindEnv("address")
 
-	StoresServiceCmd.PersistentFlags().String("token", "", "Set Bearer token used by the client. Or use CLI_STORES_TOKEN.")
+	StoresServiceCmd.PersistentFlags().String("token", "", "Set Bearer token used by the client. Or use BOBATOOL_STORES_TOKEN.")
 	StoresConfig.BindPFlag("token", StoresServiceCmd.PersistentFlags().Lookup("token"))
 	StoresConfig.BindEnv("token")
 
-	StoresServiceCmd.PersistentFlags().String("api_key", "", "Set API Key used by the client. Or use CLI_STORES_API_KEY.")
+	StoresServiceCmd.PersistentFlags().String("api_key", "", "Set API Key used by the client. Or use BOBATOOL_STORES_API_KEY.")
 	StoresConfig.BindPFlag("api_key", StoresServiceCmd.PersistentFlags().Lookup("api_key"))
 	StoresConfig.BindEnv("api_key")
 }
 
 var StoresServiceCmd = &cobra.Command{
 	Use:       "stores",
-	Short:     "A store locator API",
-	Long:      "A store locator API",
+	Short:     "Locate stores and related details.",
+	Long:      "Locate stores and related details.",
 	ValidArgs: StoresSubCommands,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) (err error) {
 		var opts []option.ClientOption

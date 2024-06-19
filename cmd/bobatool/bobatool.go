@@ -23,8 +23,8 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "cli",
-	Short: "Root command of cli",
+	Use:   "bobatool",
+	Short: "Root command of bobatool",
 }
 
 func Execute() {

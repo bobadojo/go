@@ -33,9 +33,9 @@ gapic:
         	--go_gapic_out='pkg'
 
 cli:
-	mkdir -p cmd/btool
+	mkdir -p cmd/bobatool
 	protoc ${APIS} \
 		--proto_path='../apis' \
-        	--go_cli_opt='root=cli' \
+        	--go_cli_opt='root=bobatool' \
         	--go_cli_opt='gapic=github.com/bobadojo/go/pkg/gapic' \
-        	--go_cli_out=cmd/btool
+        	--go_cli_out=cmd/bobatool

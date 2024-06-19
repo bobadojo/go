@@ -15,13 +15,13 @@ func init() {
 // completionCmd represents the completion command
 var completionCmd = &cobra.Command{
 	Use:   "completion",
-	Short: "Emits bash a completion for cli",
+	Short: "Emits bash a completion for bobatool",
 	Long: `Enable bash completion like so:
 		Linux:
-			source <(cli completion)
+			source <(bobatool completion)
 		Mac:
 			brew install bash-completion
-			cli completion > $(brew --prefix)/etc/bash_completion.d/cli`,
+			bobatool completion > $(brew --prefix)/etc/bash_completion.d/bobatool`,
 	Run: func(cmd *cobra.Command, args []string) {
 		rootCmd.GenBashCompletion(os.Stdout)
 	},

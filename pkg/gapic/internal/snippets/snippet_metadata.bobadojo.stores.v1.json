@@ -12,6 +12,52 @@
   },
   "snippets": [
     {
+      "regionTag": "_v1_generated_Menus_GetMenu_sync",
+      "title": " GetMenu Sample",
+      "description": "GetMenu returns a menu for a specific store.",
+      "file": "MenusClient/GetMenu/main.go",
+      "language": "GO",
+      "clientMethod": {
+        "shortName": "GetMenu",
+        "fullName": "bobadojo.stores.v1.MenusClient.GetMenu",
+        "parameters": [
+          {
+            "type": "context.Context",
+            "name": "ctx"
+          },
+          {
+            "type": "menuspb.GetMenuRequest",
+            "name": "req"
+          },
+          {
+            "type": "...gax.CallOption",
+            "name": "opts"
+          }
+        ],
+        "resultType": "*menuspb.Menu",
+        "client": {
+          "shortName": "MenusClient",
+          "fullName": "bobadojo.stores.v1.MenusClient"
+        },
+        "method": {
+          "shortName": "GetMenu",
+          "fullName": "bobadojo.menus.v1.Menus.GetMenu",
+          "service": {
+            "shortName": "Menus",
+            "fullName": "bobadojo.menus.v1.Menus"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 18,
+          "end": 53,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
       "regionTag": "_v1_generated_Stores_FindStores_sync",
       "title": " FindStores Sample",
       "description": "FindStores returns a list of all stores in the store.",
