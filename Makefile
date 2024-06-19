@@ -1,13 +1,15 @@
+APIS=$(shell find ../apis/bobadojo -name "*.proto")
+
+all:	rpc grpc
+
 rpc:
-	protoc \
-		../apis/bobadojo/stores/v1/stores.proto \
+	protoc ${APIS} \
 		--proto_path='../apis' \
 		--go_opt='module=github.com/bobadojo/go' \
-		--go_out='.'
+		--go_out='pkg'
 
 grpc:
-	protoc \
-		../apis/bobadojo/stores/v1/stores.proto \
-		 --proto_path='../apis' \
-		 --go-grpc_opt='module=github.com/bobadojo/go' \
-		 --go-grpc_out='.'
+	protoc ${APIS} \
+		--proto_path='../apis' \
+		--go-grpc_opt='module=github.com/bobadojo/go' \
+		--go-grpc_out='pkg'

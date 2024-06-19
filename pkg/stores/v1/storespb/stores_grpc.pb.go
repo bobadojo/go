@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	StoreLocator_ListStores_FullMethodName = "/bobadojo.stores.v1.StoreLocator/ListStores"
+	StoreLocator_FindStores_FullMethodName = "/bobadojo.stores.v1.StoreLocator/FindStores"
 	StoreLocator_GetStore_FullMethodName   = "/bobadojo.stores.v1.StoreLocator/GetStore"
 )
 
@@ -29,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StoreLocatorClient interface {
 	// Returns a list of all stores in the store.
-	ListStores(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListStoresResponse, error)
+	FindStores(ctx context.Context, in *FindStoresRequest, opts ...grpc.CallOption) (*FindStoresResponse, error)
 	// Returns a specific store.
 	GetStore(ctx context.Context, in *GetStoreRequest, opts ...grpc.CallOption) (*Store, error)
 }
@@ -42,9 +41,9 @@ func NewStoreLocatorClient(cc grpc.ClientConnInterface) StoreLocatorClient {
 	return &storeLocatorClient{cc}
 }
 
-func (c *storeLocatorClient) ListStores(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListStoresResponse, error) {
-	out := new(ListStoresResponse)
-	err := c.cc.Invoke(ctx, StoreLocator_ListStores_FullMethodName, in, out, opts...)
+func (c *storeLocatorClient) FindStores(ctx context.Context, in *FindStoresRequest, opts ...grpc.CallOption) (*FindStoresResponse, error) {
+	out := new(FindStoresResponse)
+	err := c.cc.Invoke(ctx, StoreLocator_FindStores_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +64,7 @@ func (c *storeLocatorClient) GetStore(ctx context.Context, in *GetStoreRequest, 
 // for forward compatibility
 type StoreLocatorServer interface {
 	// Returns a list of all stores in the store.
-	ListStores(context.Context, *emptypb.Empty) (*ListStoresResponse, error)
+	FindStores(context.Context, *FindStoresRequest) (*FindStoresResponse, error)
 	// Returns a specific store.
 	GetStore(context.Context, *GetStoreRequest) (*Store, error)
 	mustEmbedUnimplementedStoreLocatorServer()
@@ -75,8 +74,8 @@ type StoreLocatorServer interface {
 type UnimplementedStoreLocatorServer struct {
 }
 
-func (UnimplementedStoreLocatorServer) ListStores(context.Context, *emptypb.Empty) (*ListStoresResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListStores not implemented")
+func (UnimplementedStoreLocatorServer) FindStores(context.Context, *FindStoresRequest) (*FindStoresResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindStores not implemented")
 }
 func (UnimplementedStoreLocatorServer) GetStore(context.Context, *GetStoreRequest) (*Store, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStore not implemented")
@@ -94,20 +93,20 @@ func RegisterStoreLocatorServer(s grpc.ServiceRegistrar, srv StoreLocatorServer)
 	s.RegisterService(&StoreLocator_ServiceDesc, srv)
 }
 
-func _StoreLocator_ListStores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+func _StoreLocator_FindStores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindStoresRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StoreLocatorServer).ListStores(ctx, in)
+		return srv.(StoreLocatorServer).FindStores(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StoreLocator_ListStores_FullMethodName,
+		FullMethod: StoreLocator_FindStores_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StoreLocatorServer).ListStores(ctx, req.(*emptypb.Empty))
+		return srv.(StoreLocatorServer).FindStores(ctx, req.(*FindStoresRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -138,8 +137,8 @@ var StoreLocator_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*StoreLocatorServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListStores",
-			Handler:    _StoreLocator_ListStores_Handler,
+			MethodName: "FindStores",
+			Handler:    _StoreLocator_FindStores_Handler,
 		},
 		{
 			MethodName: "GetStore",
