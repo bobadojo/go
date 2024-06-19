@@ -36,7 +36,7 @@
 //  // - It may require correct/in-range values for request initialization.
 //  // - It may require specifying regional endpoints when creating the service client as shown in:
 //  //   https://pkg.go.dev/cloud.google.com/go#hdr-Client_Options
-//  c, err := gapic.NewStoreLocatorClient(ctx)
+//  c, err := gapic.NewStoresClient(ctx)
 //  if err != nil {
 //  	// TODO: Handle error.
 //  }
@@ -56,7 +56,7 @@
 //  // - It may require correct/in-range values for request initialization.
 //  // - It may require specifying regional endpoints when creating the service client as shown in:
 //  //   https://pkg.go.dev/cloud.google.com/go#hdr-Client_Options
-//  c, err := gapic.NewStoreLocatorClient(ctx)
+//  c, err := gapic.NewStoresClient(ctx)
 //  if err != nil {
 //  	// TODO: Handle error.
 //  }
@@ -75,7 +75,7 @@
 //
 // Use of Context
 //
-// The ctx passed to NewStoreLocatorClient is used for authentication requests and
+// The ctx passed to NewStoresClient is used for authentication requests and
 // for creating the underlying connection, but is not used for subsequent calls.
 // Individual methods on the client use the ctx given to them.
 //

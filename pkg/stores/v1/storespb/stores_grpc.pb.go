@@ -19,130 +19,130 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	StoreLocator_FindStores_FullMethodName = "/bobadojo.stores.v1.StoreLocator/FindStores"
-	StoreLocator_GetStore_FullMethodName   = "/bobadojo.stores.v1.StoreLocator/GetStore"
+	Stores_FindStores_FullMethodName = "/bobadojo.stores.v1.Stores/FindStores"
+	Stores_GetStore_FullMethodName   = "/bobadojo.stores.v1.Stores/GetStore"
 )
 
-// StoreLocatorClient is the client API for StoreLocator service.
+// StoresClient is the client API for Stores service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type StoreLocatorClient interface {
+type StoresClient interface {
 	// Returns a list of all stores in the store.
 	FindStores(ctx context.Context, in *FindStoresRequest, opts ...grpc.CallOption) (*FindStoresResponse, error)
 	// Returns a specific store.
 	GetStore(ctx context.Context, in *GetStoreRequest, opts ...grpc.CallOption) (*Store, error)
 }
 
-type storeLocatorClient struct {
+type storesClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewStoreLocatorClient(cc grpc.ClientConnInterface) StoreLocatorClient {
-	return &storeLocatorClient{cc}
+func NewStoresClient(cc grpc.ClientConnInterface) StoresClient {
+	return &storesClient{cc}
 }
 
-func (c *storeLocatorClient) FindStores(ctx context.Context, in *FindStoresRequest, opts ...grpc.CallOption) (*FindStoresResponse, error) {
+func (c *storesClient) FindStores(ctx context.Context, in *FindStoresRequest, opts ...grpc.CallOption) (*FindStoresResponse, error) {
 	out := new(FindStoresResponse)
-	err := c.cc.Invoke(ctx, StoreLocator_FindStores_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Stores_FindStores_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storeLocatorClient) GetStore(ctx context.Context, in *GetStoreRequest, opts ...grpc.CallOption) (*Store, error) {
+func (c *storesClient) GetStore(ctx context.Context, in *GetStoreRequest, opts ...grpc.CallOption) (*Store, error) {
 	out := new(Store)
-	err := c.cc.Invoke(ctx, StoreLocator_GetStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Stores_GetStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// StoreLocatorServer is the server API for StoreLocator service.
-// All implementations must embed UnimplementedStoreLocatorServer
+// StoresServer is the server API for Stores service.
+// All implementations must embed UnimplementedStoresServer
 // for forward compatibility
-type StoreLocatorServer interface {
+type StoresServer interface {
 	// Returns a list of all stores in the store.
 	FindStores(context.Context, *FindStoresRequest) (*FindStoresResponse, error)
 	// Returns a specific store.
 	GetStore(context.Context, *GetStoreRequest) (*Store, error)
-	mustEmbedUnimplementedStoreLocatorServer()
+	mustEmbedUnimplementedStoresServer()
 }
 
-// UnimplementedStoreLocatorServer must be embedded to have forward compatible implementations.
-type UnimplementedStoreLocatorServer struct {
+// UnimplementedStoresServer must be embedded to have forward compatible implementations.
+type UnimplementedStoresServer struct {
 }
 
-func (UnimplementedStoreLocatorServer) FindStores(context.Context, *FindStoresRequest) (*FindStoresResponse, error) {
+func (UnimplementedStoresServer) FindStores(context.Context, *FindStoresRequest) (*FindStoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindStores not implemented")
 }
-func (UnimplementedStoreLocatorServer) GetStore(context.Context, *GetStoreRequest) (*Store, error) {
+func (UnimplementedStoresServer) GetStore(context.Context, *GetStoreRequest) (*Store, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStore not implemented")
 }
-func (UnimplementedStoreLocatorServer) mustEmbedUnimplementedStoreLocatorServer() {}
+func (UnimplementedStoresServer) mustEmbedUnimplementedStoresServer() {}
 
-// UnsafeStoreLocatorServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to StoreLocatorServer will
+// UnsafeStoresServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to StoresServer will
 // result in compilation errors.
-type UnsafeStoreLocatorServer interface {
-	mustEmbedUnimplementedStoreLocatorServer()
+type UnsafeStoresServer interface {
+	mustEmbedUnimplementedStoresServer()
 }
 
-func RegisterStoreLocatorServer(s grpc.ServiceRegistrar, srv StoreLocatorServer) {
-	s.RegisterService(&StoreLocator_ServiceDesc, srv)
+func RegisterStoresServer(s grpc.ServiceRegistrar, srv StoresServer) {
+	s.RegisterService(&Stores_ServiceDesc, srv)
 }
 
-func _StoreLocator_FindStores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Stores_FindStores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindStoresRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StoreLocatorServer).FindStores(ctx, in)
+		return srv.(StoresServer).FindStores(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StoreLocator_FindStores_FullMethodName,
+		FullMethod: Stores_FindStores_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StoreLocatorServer).FindStores(ctx, req.(*FindStoresRequest))
+		return srv.(StoresServer).FindStores(ctx, req.(*FindStoresRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _StoreLocator_GetStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Stores_GetStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetStoreRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StoreLocatorServer).GetStore(ctx, in)
+		return srv.(StoresServer).GetStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StoreLocator_GetStore_FullMethodName,
+		FullMethod: Stores_GetStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StoreLocatorServer).GetStore(ctx, req.(*GetStoreRequest))
+		return srv.(StoresServer).GetStore(ctx, req.(*GetStoreRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// StoreLocator_ServiceDesc is the grpc.ServiceDesc for StoreLocator service.
+// Stores_ServiceDesc is the grpc.ServiceDesc for Stores service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var StoreLocator_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "bobadojo.stores.v1.StoreLocator",
-	HandlerType: (*StoreLocatorServer)(nil),
+var Stores_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "bobadojo.stores.v1.Stores",
+	HandlerType: (*StoresServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "FindStores",
-			Handler:    _StoreLocator_FindStores_Handler,
+			Handler:    _Stores_FindStores_Handler,
 		},
 		{
 			MethodName: "GetStore",
-			Handler:    _StoreLocator_GetStore_Handler,
+			Handler:    _Stores_GetStore_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

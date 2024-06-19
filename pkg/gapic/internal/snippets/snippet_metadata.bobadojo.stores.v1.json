@@ -12,14 +12,14 @@
   },
   "snippets": [
     {
-      "regionTag": "_v1_generated_StoreLocator_FindStores_sync",
+      "regionTag": "_v1_generated_Stores_FindStores_sync",
       "title": " FindStores Sample",
       "description": "FindStores returns a list of all stores in the store.",
-      "file": "StoreLocatorClient/FindStores/main.go",
+      "file": "StoresClient/FindStores/main.go",
       "language": "GO",
       "clientMethod": {
         "shortName": "FindStores",
-        "fullName": "bobadojo.stores.v1.StoreLocatorClient.FindStores",
+        "fullName": "bobadojo.stores.v1.StoresClient.FindStores",
         "parameters": [
           {
             "type": "context.Context",
@@ -36,15 +36,15 @@
         ],
         "resultType": "*storespb.FindStoresResponse",
         "client": {
-          "shortName": "StoreLocatorClient",
-          "fullName": "bobadojo.stores.v1.StoreLocatorClient"
+          "shortName": "StoresClient",
+          "fullName": "bobadojo.stores.v1.StoresClient"
         },
         "method": {
           "shortName": "FindStores",
-          "fullName": "bobadojo.stores.v1.StoreLocator.FindStores",
+          "fullName": "bobadojo.stores.v1.Stores.FindStores",
           "service": {
-            "shortName": "StoreLocator",
-            "fullName": "bobadojo.stores.v1.StoreLocator"
+            "shortName": "Stores",
+            "fullName": "bobadojo.stores.v1.Stores"
           }
         }
       },
@@ -58,14 +58,14 @@
       ]
     },
     {
-      "regionTag": "_v1_generated_StoreLocator_GetStore_sync",
+      "regionTag": "_v1_generated_Stores_GetStore_sync",
       "title": " GetStore Sample",
       "description": "GetStore returns a specific store.",
-      "file": "StoreLocatorClient/GetStore/main.go",
+      "file": "StoresClient/GetStore/main.go",
       "language": "GO",
       "clientMethod": {
         "shortName": "GetStore",
-        "fullName": "bobadojo.stores.v1.StoreLocatorClient.GetStore",
+        "fullName": "bobadojo.stores.v1.StoresClient.GetStore",
         "parameters": [
           {
             "type": "context.Context",
@@ -82,15 +82,15 @@
         ],
         "resultType": "*storespb.Store",
         "client": {
-          "shortName": "StoreLocatorClient",
-          "fullName": "bobadojo.stores.v1.StoreLocatorClient"
+          "shortName": "StoresClient",
+          "fullName": "bobadojo.stores.v1.StoresClient"
         },
         "method": {
           "shortName": "GetStore",
-          "fullName": "bobadojo.stores.v1.StoreLocator.GetStore",
+          "fullName": "bobadojo.stores.v1.Stores.GetStore",
           "service": {
-            "shortName": "StoreLocator",
-            "fullName": "bobadojo.stores.v1.StoreLocator"
+            "shortName": "Stores",
+            "fullName": "bobadojo.stores.v1.Stores"
           }
         }
       },

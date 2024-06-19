@@ -19,7 +19,7 @@ var GetStoreInput storespb.GetStoreRequest
 var GetStoreFromFile string
 
 func init() {
-	StoreLocatorServiceCmd.AddCommand(GetStoreCmd)
+	StoresServiceCmd.AddCommand(GetStoreCmd)
 
 	GetStoreCmd.Flags().StringVar(&GetStoreInput.Name, "name", "", "Required. The ID of the store resource to retrieve.")
 
@@ -58,9 +58,9 @@ var GetStoreCmd = &cobra.Command{
 		}
 
 		if Verbose {
-			printVerboseInput("StoreLocator", "GetStore", &GetStoreInput)
+			printVerboseInput("Stores", "GetStore", &GetStoreInput)
 		}
-		resp, err := StoreLocatorClient.GetStore(ctx, &GetStoreInput)
+		resp, err := StoresClient.GetStore(ctx, &GetStoreInput)
 		if err != nil {
 			return err
 		}

@@ -19,7 +19,7 @@ var FindStoresInput storespb.FindStoresRequest
 var FindStoresFromFile string
 
 func init() {
-	StoreLocatorServiceCmd.AddCommand(FindStoresCmd)
+	StoresServiceCmd.AddCommand(FindStoresCmd)
 
 	FindStoresInput.BoundingBox = new(storespb.Box)
 
@@ -74,9 +74,9 @@ var FindStoresCmd = &cobra.Command{
 		}
 
 		if Verbose {
-			printVerboseInput("StoreLocator", "FindStores", &FindStoresInput)
+			printVerboseInput("Stores", "FindStores", &FindStoresInput)
 		}
-		resp, err := StoreLocatorClient.FindStores(ctx, &FindStoresInput)
+		resp, err := StoresClient.FindStores(ctx, &FindStoresInput)
 		if err != nil {
 			return err
 		}
