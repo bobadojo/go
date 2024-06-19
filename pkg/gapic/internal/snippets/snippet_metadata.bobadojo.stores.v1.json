@@ -1,0 +1,107 @@
+{
+  "clientLibrary": {
+    "name": "github.com/bobadojo/go/pkg/gapic",
+    "version": "$VERSION",
+    "language": "GO",
+    "apis": [
+      {
+        "id": "bobadojo.stores.v1",
+        "version": "v1"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "regionTag": "_v1_generated_StoreLocator_FindStores_sync",
+      "title": " FindStores Sample",
+      "description": "FindStores returns a list of all stores in the store.",
+      "file": "StoreLocatorClient/FindStores/main.go",
+      "language": "GO",
+      "clientMethod": {
+        "shortName": "FindStores",
+        "fullName": "bobadojo.stores.v1.StoreLocatorClient.FindStores",
+        "parameters": [
+          {
+            "type": "context.Context",
+            "name": "ctx"
+          },
+          {
+            "type": "storespb.FindStoresRequest",
+            "name": "req"
+          },
+          {
+            "type": "...gax.CallOption",
+            "name": "opts"
+          }
+        ],
+        "resultType": "*storespb.FindStoresResponse",
+        "client": {
+          "shortName": "StoreLocatorClient",
+          "fullName": "bobadojo.stores.v1.StoreLocatorClient"
+        },
+        "method": {
+          "shortName": "FindStores",
+          "fullName": "bobadojo.stores.v1.StoreLocator.FindStores",
+          "service": {
+            "shortName": "StoreLocator",
+            "fullName": "bobadojo.stores.v1.StoreLocator"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 18,
+          "end": 53,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "regionTag": "_v1_generated_StoreLocator_GetStore_sync",
+      "title": " GetStore Sample",
+      "description": "GetStore returns a specific store.",
+      "file": "StoreLocatorClient/GetStore/main.go",
+      "language": "GO",
+      "clientMethod": {
+        "shortName": "GetStore",
+        "fullName": "bobadojo.stores.v1.StoreLocatorClient.GetStore",
+        "parameters": [
+          {
+            "type": "context.Context",
+            "name": "ctx"
+          },
+          {
+            "type": "storespb.GetStoreRequest",
+            "name": "req"
+          },
+          {
+            "type": "...gax.CallOption",
+            "name": "opts"
+          }
+        ],
+        "resultType": "*storespb.Store",
+        "client": {
+          "shortName": "StoreLocatorClient",
+          "fullName": "bobadojo.stores.v1.StoreLocatorClient"
+        },
+        "method": {
+          "shortName": "GetStore",
+          "fullName": "bobadojo.stores.v1.StoreLocator.GetStore",
+          "service": {
+            "shortName": "StoreLocator",
+            "fullName": "bobadojo.stores.v1.StoreLocator"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 18,
+          "end": 53,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}
