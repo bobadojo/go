@@ -23,6 +23,7 @@ grpc:
 		--go-grpc_out='pkg'
 
 gapic:
+	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_gapic@latest
 	mkdir -p pkg
 	protoc ${APIS} \
 		--proto_path='../apis' \
