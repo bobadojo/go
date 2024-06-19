@@ -24,7 +24,7 @@ import (
 	"net/url"
 	"time"
 
-	storespb "github.com/bobadojo/go/stores/v1/storespb"
+	storespb "github.com/bobadojo/go/pkg/stores/v1/storespb"
 	gax "github.com/googleapis/gax-go/v2"
 	"google.golang.org/api/option"
 	"google.golang.org/api/option/internaloption"

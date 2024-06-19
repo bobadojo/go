@@ -64,7 +64,7 @@
 //
 //  req := &storespb.FindStoresRequest{
 //  	// TODO: Fill request struct fields.
-//  	// See https://pkg.go.dev/github.com/bobadojo/go/stores/v1/storespb#FindStoresRequest.
+//  	// See https://pkg.go.dev/github.com/bobadojo/go/pkg/stores/v1/storespb#FindStoresRequest.
 //  }
 //  resp, err := c.FindStores(ctx, req)
 //  if err != nil {

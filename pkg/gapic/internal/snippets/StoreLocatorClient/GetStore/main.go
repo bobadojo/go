@@ -22,7 +22,7 @@ import (
 	"context"
 
 	gapic "github.com/bobadojo/go/pkg/gapic"
-	storespb "github.com/bobadojo/go/stores/v1/storespb"
+	storespb "github.com/bobadojo/go/pkg/stores/v1/storespb"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 	req := &storespb.GetStoreRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/github.com/bobadojo/go/stores/v1/storespb#GetStoreRequest.
+		// See https://pkg.go.dev/github.com/bobadojo/go/pkg/stores/v1/storespb#GetStoreRequest.
 	}
 	resp, err := c.GetStore(ctx, req)
 	if err != nil {
