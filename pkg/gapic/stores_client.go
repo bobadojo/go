@@ -25,16 +25,19 @@ import (
 
 	storespb "github.com/bobadojo/go/pkg/stores/v1/storespb"
 	gax "github.com/googleapis/gax-go/v2"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"google.golang.org/api/option/internaloption"
 	gtransport "google.golang.org/api/transport/grpc"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 )
 
 var newStoresClientHook clientHook
 
 // StoresCallOptions contains the retry settings for each method of StoresClient.
 type StoresCallOptions struct {
+	ListStores []gax.CallOption
 	FindStores []gax.CallOption
 	GetStore []gax.CallOption
 }
@@ -56,6 +59,8 @@ func defaultStoresGRPCClientOptions() []option.ClientOption {
 
 func defaultStoresCallOptions() *StoresCallOptions {
 	return &StoresCallOptions{
+		ListStores: []gax.CallOption{
+		},
 		FindStores: []gax.CallOption{
 		},
 		GetStore: []gax.CallOption{
@@ -68,6 +73,7 @@ type internalStoresClient interface {
 	Close() error
 	setGoogleClientInfo(...string)
 	Connection() *grpc.ClientConn
+	ListStores(context.Context, *storespb.ListStoresRequest, ...gax.CallOption) *StoreIterator
 	FindStores(context.Context, *storespb.FindStoresRequest, ...gax.CallOption) (*storespb.FindStoresResponse, error)
 	GetStore(context.Context, *storespb.GetStoreRequest, ...gax.CallOption) (*storespb.Store, error)
 }
@@ -75,7 +81,7 @@ type internalStoresClient interface {
 // StoresClient is a client for interacting with .
 // Methods, except Close, may be called concurrently. However, fields must not be modified concurrently with method calls.
 //
-// Locate stores and related details.
+// Get stores and related information.
 type StoresClient struct {
 	// The internal transport-dependent client.
 	internalClient internalStoresClient
@@ -108,7 +114,12 @@ func (c *StoresClient) Connection() *grpc.ClientConn {
 	return c.internalClient.Connection()
 }
 
-// FindStores returns a list of all stores in the store.
+// ListStores list all stores.
+func (c *StoresClient) ListStores(ctx context.Context, req *storespb.ListStoresRequest, opts ...gax.CallOption) *StoreIterator {
+	return c.internalClient.ListStores(ctx, req, opts...)
+}
+
+// FindStores returns a list of all stores in a specified region.
 func (c *StoresClient) FindStores(ctx context.Context, req *storespb.FindStoresRequest, opts ...gax.CallOption) (*storespb.FindStoresResponse, error) {
 	return c.internalClient.FindStores(ctx, req, opts...)
 }
@@ -138,7 +149,7 @@ type storesGRPCClient struct {
 // NewStoresClient creates a new stores client based on gRPC.
 // The returned client must be Closed when it is done being used to clean up its underlying connections.
 //
-// Locate stores and related details.
+// Get stores and related information.
 func NewStoresClient(ctx context.Context, opts ...option.ClientOption) (*StoresClient, error) {
 	clientOpts := defaultStoresGRPCClientOptions()
 	if newStoresClientHook != nil {
@@ -191,6 +202,49 @@ func (c *storesGRPCClient) setGoogleClientInfo(keyval ...string) {
 // the client is no longer required.
 func (c *storesGRPCClient) Close() error {
 	return c.connPool.Close()
+}
+
+func (c *storesGRPCClient) ListStores(ctx context.Context, req *storespb.ListStoresRequest, opts ...gax.CallOption) *StoreIterator {
+	ctx = gax.InsertMetadataIntoOutgoingContext(ctx, c.xGoogHeaders...)
+	opts = append((*c.CallOptions).ListStores[0:len((*c.CallOptions).ListStores):len((*c.CallOptions).ListStores)], opts...)
+	it := &StoreIterator{}
+	req = proto.Clone(req).(*storespb.ListStoresRequest)
+	it.InternalFetch = func(pageSize int, pageToken string) ([]*storespb.Store, string, error) {
+		resp := &storespb.ListStoresResponse{}
+		if pageToken != "" {
+			req.PageToken = pageToken
+		}
+		if pageSize > math.MaxInt32 {
+			req.PageSize = math.MaxInt32
+		} else if pageSize != 0 {
+			req.PageSize = int32(pageSize)
+		}
+		err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
+			var err error
+			resp, err = c.storesClient.ListStores(ctx, req, settings.GRPC...)
+			return err
+		}, opts...)
+		if err != nil {
+			return nil, "", err
+		}
+
+		it.Response = resp
+		return resp.GetStores(), resp.GetNextPageToken(), nil
+	}
+	fetch := func(pageSize int, pageToken string) (string, error) {
+		items, nextPageToken, err := it.InternalFetch(pageSize, pageToken)
+		if err != nil {
+			return "", err
+		}
+		it.items = append(it.items, items...)
+		return nextPageToken, nil
+	}
+
+	it.pageInfo, it.nextFunc = iterator.NewPageInfo(fetch, it.bufLen, it.takeBuf)
+	it.pageInfo.MaxSize = int(req.GetPageSize())
+	it.pageInfo.Token = req.GetPageToken()
+
+	return it
 }
 
 func (c *storesGRPCClient) FindStores(ctx context.Context, req *storespb.FindStoresRequest, opts ...gax.CallOption) (*storespb.FindStoresResponse, error) {

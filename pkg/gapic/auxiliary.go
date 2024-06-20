@@ -18,6 +18,53 @@
 package gapic
 
 import (
+	storespb "github.com/bobadojo/go/pkg/stores/v1/storespb"
+	"google.golang.org/api/iterator"
 )
 
+// StoreIterator manages a stream of *storespb.Store.
+type StoreIterator struct {
+	items    []*storespb.Store
+	pageInfo *iterator.PageInfo
+	nextFunc func() error
 
+	// Response is the raw response for the current page.
+	// It must be cast to the RPC response type.
+	// Calling Next() or InternalFetch() updates this value.
+	Response interface{}
+
+	// InternalFetch is for use by the Google Cloud Libraries only.
+	// It is not part of the stable interface of this package.
+	//
+	// InternalFetch returns results from a single call to the underlying RPC.
+	// The number of results is no greater than pageSize.
+	// If there are no more results, nextPageToken is empty and err is nil.
+	InternalFetch func(pageSize int, pageToken string) (results []*storespb.Store, nextPageToken string, err error)
+}
+
+// PageInfo supports pagination. See the google.golang.org/api/iterator package for details.
+func (it *StoreIterator) PageInfo() *iterator.PageInfo {
+	return it.pageInfo
+}
+
+// Next returns the next result. Its second return value is iterator.Done if there are no more
+// results. Once Next returns Done, all subsequent calls will return Done.
+func (it *StoreIterator) Next() (*storespb.Store, error) {
+	var item *storespb.Store
+	if err := it.nextFunc(); err != nil {
+		return item, err
+	}
+	item = it.items[0]
+	it.items = it.items[1:]
+	return item, nil
+}
+
+func (it *StoreIterator) bufLen() int {
+	return len(it.items)
+}
+
+func (it *StoreIterator) takeBuf() interface{} {
+	b := it.items
+	it.items = nil
+	return b
+}

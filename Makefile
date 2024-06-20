@@ -6,9 +6,10 @@ build:
 clean:
 	rm -rf cmd pkg
 
-all:	rpc grpc gapic cli
+all:	rpc grpc gapic cli build
 
 rpc:
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	mkdir -p pkg
 	protoc ${APIS} \
 		--proto_path='../apis' \
@@ -16,6 +17,7 @@ rpc:
 		--go_out='pkg'
 
 grpc:
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	mkdir -p pkg
 	protoc ${APIS} \
 		--proto_path='../apis' \
@@ -33,6 +35,7 @@ gapic:
         	--go_gapic_out='pkg'
 
 cli:
+	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_cli@latest
 	mkdir -p cmd/bobatool
 	protoc ${APIS} \
 		--proto_path='../apis' \

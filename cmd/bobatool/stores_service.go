@@ -10,6 +10,7 @@ import (
 	"golang.org/x/oauth2"
 	"google.golang.org/api/option"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	gapic "github.com/bobadojo/go/pkg/gapic"
 )
@@ -17,6 +18,7 @@ import (
 var StoresConfig *viper.Viper
 var StoresClient *gapic.StoresClient
 var StoresSubCommands []string = []string{
+	"list-stores",
 	"find-stores",
 	"get-store",
 }
@@ -47,8 +49,8 @@ func init() {
 
 var StoresServiceCmd = &cobra.Command{
 	Use:       "stores",
-	Short:     "Locate stores and related details.",
-	Long:      "Locate stores and related details.",
+	Short:     "Get stores and related information.",
+	Long:      "Get stores and related information.",
 	ValidArgs: StoresSubCommands,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) (err error) {
 		var opts []option.ClientOption
@@ -63,7 +65,7 @@ var StoresServiceCmd = &cobra.Command{
 				return fmt.Errorf("Missing address to use with insecure connection")
 			}
 
-			conn, err := grpc.Dial(address, grpc.WithInsecure())
+			conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 			if err != nil {
 				return err
 			}

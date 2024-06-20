@@ -22,6 +22,7 @@ import (
 
 	gapic "github.com/bobadojo/go/pkg/gapic"
 	storespb "github.com/bobadojo/go/pkg/stores/v1/storespb"
+	"google.golang.org/api/iterator"
 )
 
 func ExampleNewStoresClient() {
@@ -89,4 +90,41 @@ func ExampleStoresClient_GetStore() {
 	}
 	// TODO: Use resp.
 	_ = resp
+}
+
+func ExampleStoresClient_ListStores() {
+	ctx := context.Background()
+	// This snippet has been automatically generated and should be regarded as a code template only.
+	// It will require modifications to work:
+	// - It may require correct/in-range values for request initialization.
+	// - It may require specifying regional endpoints when creating the service client as shown in:
+	//   https://pkg.go.dev/cloud.google.com/go#hdr-Client_Options
+	c, err := gapic.NewStoresClient(ctx)
+	if err != nil {
+		// TODO: Handle error.
+	}
+	defer c.Close()
+
+	req := &storespb.ListStoresRequest{
+		// TODO: Fill request struct fields.
+		// See https://pkg.go.dev/github.com/bobadojo/go/pkg/stores/v1/storespb#ListStoresRequest.
+	}
+	it := c.ListStores(ctx, req)
+	for {
+		resp, err := it.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			// TODO: Handle error.
+		}
+		// TODO: Use resp.
+		_ = resp
+
+		// If you need to access the underlying RPC response,
+		// you can do so by casting the `Response` as below.
+		// Otherwise, remove this line. Only populated after
+		// first call to Next(). Not safe for concurrent access.
+		_ = it.Response.(*storespb.ListStoresResponse)
+	}
 }
