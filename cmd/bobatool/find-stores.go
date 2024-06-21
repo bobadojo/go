@@ -35,6 +35,8 @@ func init() {
 
 	FindStoresCmd.Flags().Float32Var(&FindStoresInput.Bounds.Min.Longitude, "bounds.min.longitude", 0.0, "Required. Longitude of the location.")
 
+	FindStoresCmd.Flags().Int32Var(&FindStoresInput.Limit, "limit", 0, "Maximum number of results to return.")
+
 	FindStoresCmd.Flags().StringVar(&FindStoresFromFile, "from_file", "", "Absolute path to JSON file containing request payload")
 
 }
