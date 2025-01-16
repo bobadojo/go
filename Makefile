@@ -8,6 +8,14 @@ clean:
 
 all:	rpc grpc gapic cli build
 
+descriptor:
+	git submodule init
+	git submodule update
+	mkdir -p pkg
+	protoc ${APIS} \
+		--proto_path='apis' \
+		--descriptor_set_out=descriptor.pb
+
 rpc:
 	git submodule init
 	git submodule update
@@ -27,7 +35,7 @@ grpc:
 		--go-grpc_out='pkg'
 
 gapic:
-	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_gapic@latest
+	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_gapic@v0.42.0
 	mkdir -p pkg
 	protoc ${APIS} \
 		--proto_path='apis' \
@@ -37,7 +45,7 @@ gapic:
         	--go_gapic_out='pkg'
 
 cli:
-	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_cli@latest
+	go install github.com/googleapis/gapic-generator-go/cmd/protoc-gen-go_cli@v0.42.0
 	mkdir -p cmd/bobatool
 	protoc ${APIS} \
 		--proto_path='apis' \
