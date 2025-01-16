@@ -14,6 +14,7 @@ descriptor:
 	mkdir -p pkg
 	protoc ${APIS} \
 		--proto_path='apis' \
+		--include_imports \
 		--descriptor_set_out=descriptor.pb
 
 rpc:
