@@ -3,6 +3,7 @@ module github.com/bobadojo/go
 go 1.22.3
 
 require (
+	connectrpc.com/connect v1.18.1
 	github.com/golang/protobuf v1.5.4
 	github.com/googleapis/gax-go/v2 v2.12.5
 	github.com/spf13/cobra v1.8.1

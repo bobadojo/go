@@ -53,3 +53,11 @@ cli:
         	--go_cli_opt='root=bobatool' \
         	--go_cli_opt='gapic=github.com/bobadojo/go/pkg/gapic' \
         	--go_cli_out=cmd/bobatool
+
+connect:
+	go install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+	mkdir -p pkg
+	protoc ${APIS} \
+		--proto_path='apis' \
+		--connect-go_opt='module=github.com/bobadojo/go/pkg' \
+		--connect-go_out='pkg'
